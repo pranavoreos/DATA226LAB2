@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: STOCK_DATA_SCHEMA # Replace with the actual Snowflake schema name where the STOCK_DATA table is stored
+    description: "Source data for stock prices"
+    tables:
+      - name: STOCK_DATA  # The raw table name in Snowflake
+        description: "Raw stock data including stock symbols, prices, and volume"
+        columns:
+          - name: stock_symbol
+            description: "Stock symbol (e.g., NVDA)"
+          - name: date
+            description: "The date the stock data was recorded"
+          - name: open
+            description: "Opening stock price"
+          - name: close
+            description: "Closing stock price"
+          - name: min
+            description: "Minimum stock price for the day"
+          - name: max
+            description: "Maximum stock price for the day"
+          - name: volume
+            description: "Volume of stocks traded"

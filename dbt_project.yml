@@ -1,0 +1,52 @@
+# Name of the project
+name: stock_analytics
+version: 1.0.0
+
+# Where dbt will look for SQL and YAML files
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target", "dbt_modules"]
+
+# Configure the profile to connect to Snowflake
+profile: stock_project  # This should match the profile name in profiles.yml
+
+# Specify the models directory and configurations
+models:
+  stock_analytics:  # Project name (ensure this matches the `name` at the top)
+    
+    # Staging layer for initial ingestion and raw transformations
+    staging:
+      +schema: staging
+      +materialized: view
+
+      # Include raw tables and transformations here
+      stock_prices:
+        +materialized: view
+
+    # Intermediate transformations and calculations for metrics
+    analytics:
+      +schema: analytics
+      +materialized: table
+
+      # Define specific metrics models here
+      moving_average:
+        +materialized: table
+        description: "Calculates a 7-day moving average for stock prices"
+
+      volatility:
+        +materialized: table
+        description: "This model calculates the 10-day rolling standard deviation of stock closing prices to measure price volatility."
+
+      price_momentum:
+        +materialized: table
+        description: "Calculates 14-day price momentum for stock prices"
+
+# Configuration for how dbt should handle logs, data, and timing
+quoting:
+  database: true
+  schema: true
+  identifier: true
+
+# Specify where dbt should look for analysis files (if you have additional SQL files for reporting)
+analysis-paths: ["analysis"]
+

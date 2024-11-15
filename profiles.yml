@@ -1,0 +1,14 @@
+stock_project:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: MRMVJRN-XFB20942
+      user: harsha07
+      password: Suharsha@007
+      role: ACCOUNTADMIN
+      database: STOCK_DATA_DB
+      warehouse: COMPUTE_WH
+      schema: STOCK_DATA_SCHEMA
+      threads: 1
+      client_session_keep_alive: False
