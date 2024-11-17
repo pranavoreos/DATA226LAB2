@@ -1,5 +1,3 @@
--- models/analytics/session_summary.sql
-
 WITH session_data AS (
     SELECT
         stock_symbol,
@@ -9,8 +7,9 @@ WITH session_data AS (
         AVG(close) AS average_close_price,
         MIN(close) AS lowest_close_price,
         MAX(close) AS highest_close_price,
-        SUM(volume) AS total_volume
-    FROM {{ ref('stock_prices') }}  -- Refers to the staging table for raw stock prices
+        SUM(volume) AS total_volume,
+        CURRENT_TIMESTAMP AS ts  
+    FROM {{ ref('stock_prices') }}
     GROUP BY stock_symbol
 )
 
@@ -22,6 +21,7 @@ SELECT
     average_close_price,
     lowest_close_price,
     highest_close_price,
-    total_volume
+    total_volume,
+    ts
 FROM session_data
 ORDER BY stock_symbol
